@@ -24,3 +24,8 @@ class QuestionsForm(FlaskForm):
     content = TextAreaField("Содержание")
     is_private = BooleanField("Личное")
     submit = SubmitField('Отправить')
+
+
+class AnswersForm(FlaskForm):
+    content = TextAreaField("Содержание")
+    submit = SubmitField('Отправить')

@@ -12,6 +12,11 @@
         Задал вопрос - {{item.user.name}}, дата отправки - {{item.created_date}}
     </div>
 {% if current_user.is_authenticated and current_user == item.user %}
+    <a href="/add_answer/{{ item.id }}" class="btn btn-warning">
+            Ответить
+    </a>
+{% endif %}
+{% if current_user.is_authenticated and current_user == item.user %}
     <div>
         <a href="/questions/{{ item.id }}" class="btn btn-warning">
             Изменить

@@ -1,8 +1,9 @@
 from flask import Flask, url_for, redirect, render_template, request, abort
-from forms.form import LoginForm, RegisterForm, QuestionsForm
+from forms.form import LoginForm, RegisterForm, QuestionsForm,  AnswersForm
 from data import db_session
 from data.questions import Questions
 from data.users import User
+from data.answer import Answers
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 
 app = Flask(__name__)
@@ -134,6 +135,24 @@ def questions_delete(id):
     return redirect('/')
 
 
+@app.route('/add_answer/<int:num>', methods=['GET', 'POST'])
+@login_required
+def add_answer(num):
+    form = AnswersForm()
+    if form.validate_on_submit():
+        db_sess = db_session.create_session()
+        answers = Answers()
+        answers.content = form.content.data
+        answers.user_id = current_user.id
+        answers.questions_id = num
+        current_user.answers.append(answers)
+        db_sess.merge(current_user)
+        db_sess.commit()
+        return redirect('/')
+    return render_template('answers.html',
+                           form=form)
+
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -142,5 +161,5 @@ def logout():
 
 
 if __name__ == '__main__':
-    db_session.global_init("db/forms.db")
+    db_session.global_init("db/form.db")
     app.run(port=8080, host='127.0.0.1')
