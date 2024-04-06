@@ -21,7 +21,7 @@ input {
     display: block; /*тип отображения*/
     border: 1px solid #050c26;/*Цвет, размер и тип границы */
     box-sizing: border-box; /*Размер объекта по отношению к родительскому */
-    font: 25px Stem-Regular,arial, sans-serif;/*Выбираем шрифт */
+    fon t: 25px Stem-Regular,arial, sans-serif;/*Выбираем шрифт */
     color: #777991;/*Цвет текста в input */
 }
 

@@ -12,7 +12,7 @@
         Задал вопрос - {{item.user.name}}, дата отправки - {{item.created_date}}
     </div>
     <a href="/solutions/{{item.id}}" class="btn btn-warning">Посмотреть ответы</a>
-{% if current_user.is_authenticated and current_user == item.user %}
+{% if current_user.is_authenticated %}
     <a href="/add_answer/{{ item.id }}" class="btn btn-warning">
             Ответить</a>
 {% endif %}
