@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+        <div class="card">
+          <div class="card-header">
+            <h1 class="text-center">Привет, {{ current_user.name }}</h1>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-center mb-4">
+              <img src="{{ url_for('static', filename='img/prof.png') }}" class="rounded-circle profile-photo" alt="Profile photo" width="200">
+            </div>
+            <p>Ваши данные:</p>
+            <p>Имя: {{ current_user.name }}</p>
+            <p>Email: {{ current_user.email }}</p>
+            <p>Немного о себе: {{ current_user.about }}</p>
+            <p>Количество ответов: {{ answers }}</p>
+            <p>Ваши вопросы:</p>
+            {% for item in current_user.questions%}
+<div class="col-md6 border rounded">
+    <h2>{{item.title}}</h2>
+    <div>
+        {{item.content}}
+    </div>
+    <a href="/add_answer/{{ item.id }}" class="btn btn-warning">
+            Ответить</a>
+    <a href="/solutions/{{item.id}}" class="btn btn-warning">Посмотреть ответы</a>
+
+    <div>
+        <a href="/questions/{{ item.id }}" class="btn btn-warning">
+            Изменить
+        </a>
+    </div>
+</div>
+{% endfor %}
+          </div>
+        </div>
+  </div>
+{% endblock %}

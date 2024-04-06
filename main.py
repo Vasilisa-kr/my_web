@@ -1,5 +1,5 @@
 from flask import Flask, url_for, redirect, render_template, request, abort
-from forms.form import LoginForm, RegisterForm, QuestionsForm,  AnswersForm
+from forms.form import LoginForm, RegisterForm, QuestionsForm, AnswersForm
 from data import db_session
 from data.questions import Questions
 from data.users import User
@@ -120,21 +120,6 @@ def edit_news(id):
                            )
 
 
-@app.route('/questions_delete/<int:id>', methods=['GET', 'POST'])
-@login_required
-def questions_delete(id):
-    db_sess = db_session.create_session()
-    questions = db_sess.query(Questions).filter(Questions.id == id,
-                                      Questions.user == current_user
-                                      ).first()
-    if questions:
-        db_sess.delete(questions)
-        db_sess.commit()
-    else:
-        abort(404)
-    return redirect('/')
-
-
 @app.route('/add_answer/<int:num>', methods=['GET', 'POST'])
 @login_required
 def add_answer(num):
@@ -151,6 +136,22 @@ def add_answer(num):
         return redirect('/')
     return render_template('answers.html',
                            form=form)
+
+
+@app.route('/profile')
+def profile():
+    if current_user.is_authenticated:
+        answers = len(current_user.answers)
+        return render_template("profile.html", answers=answers)
+    else:
+        return redirect('/login')
+
+
+@app.route('/solutions/<int:num>')
+def solutions(num):
+    db_sess = db_session.create_session()
+    questions = db_sess.query(Questions).filter(Questions.id == num).first()
+    return render_template("solutions.html", questions=questions)
 
 
 @app.route('/logout')
