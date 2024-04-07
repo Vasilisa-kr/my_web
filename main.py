@@ -133,7 +133,7 @@ def add_answer(num):
         current_user.answers.append(answers)
         db_sess.merge(current_user)
         db_sess.commit()
-        return redirect('/')
+        return redirect(f'/solutions/{num}')
     return render_template('answers.html',
                            form=form)
 

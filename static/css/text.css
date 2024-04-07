@@ -54,3 +54,7 @@ a:hover {
 }
 a:active {
   font: 25px Stem-medium, arial, sans-serif; /*Выбираем шрифт */}
+
+*{ line-height: 2.5;
+ font: 25px Stem-Regular,arial, sans-serif;}
+img {border: 2px solid #ff0000;}
